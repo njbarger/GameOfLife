@@ -29,6 +29,11 @@ namespace GameOfLife2
         // Generation count
         int generations = 0;
 
+        #region Properties
+
+        
+
+        #endregion
 
         public Form1()
         {
@@ -557,8 +562,18 @@ namespace GameOfLife2
             }
         }
 
+
         #endregion
 
+        private void toolStripButtonTimerDialog_Click(object sender, EventArgs e)
+        {
+            TimerDialog tDlg = new TimerDialog();
+            tDlg.TimerSpeed = timer.Interval;
 
+            if(DialogResult.OK == tDlg.ShowDialog())
+            {
+                timer.Interval = tDlg.TimerSpeed;
+            }
+        }
     }
 }
