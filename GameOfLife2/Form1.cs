@@ -31,7 +31,7 @@ namespace GameOfLife2
 
         #region Properties
 
-        
+
 
         #endregion
 
@@ -512,7 +512,7 @@ namespace GameOfLife2
 
         #region TimerSettings
 
-        
+
 
         #endregion
 
@@ -536,6 +536,7 @@ namespace GameOfLife2
                 graphicsPanel1.BackColor = dlg.Color;
                 graphicsPanel1.Invalidate();
             }
+            dlg.Dispose();
         }
 
         private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -548,6 +549,7 @@ namespace GameOfLife2
                 cellColor = dlg.Color;
                 graphicsPanel1.Invalidate();
             }
+            dlg.Dispose();
         }
 
         private void gridColorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -560,6 +562,8 @@ namespace GameOfLife2
                 gridColor = dlg.Color;
                 graphicsPanel1.Invalidate();
             }
+
+            dlg.Dispose();
         }
 
 
@@ -570,10 +574,16 @@ namespace GameOfLife2
             TimerDialog tDlg = new TimerDialog();
             tDlg.TimerSpeed = timer.Interval;
 
-            if(DialogResult.OK == tDlg.ShowDialog())
+            if (DialogResult.OK == tDlg.ShowDialog())
             {
+                if (tDlg.TimerSpeed <= 0)
+                {
+                    tDlg.TimerSpeed = 1;
+                }
                 timer.Interval = tDlg.TimerSpeed;
             }
+
+            tDlg.Dispose();
         }
     }
 }

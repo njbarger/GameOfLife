@@ -31,5 +31,9 @@ namespace GameOfLife2
 
         }
 
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            TimerSpeed = (int)numericUpDown1.Value;
+        }
     }
 }

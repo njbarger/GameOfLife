@@ -39,12 +39,14 @@ namespace GameOfLife2
             // 
             // buttonOK
             // 
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(80, 154);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
@@ -59,11 +61,6 @@ namespace GameOfLife2
             // numericUpDown1
             // 
             this.numericUpDown1.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this.numericUpDown1.Location = new System.Drawing.Point(104, 84);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             100000,
