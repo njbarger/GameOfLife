@@ -507,72 +507,7 @@ namespace GameOfLife2
 
         #region TimerSettings
 
-        private void TimerSelection100_Click(object sender, EventArgs e)
-        {
-            timer.Interval = 100;
-            TimerSelection40.Checked = false;
-            TimerSelection10.Checked = false;
-            TimerSelection100.Checked = true;
-            TimerSelection250.Checked = false;
-            TimerSelection500.Checked = false;
-            TimerSelection1000.Checked = false;
-
-        }
-
-        private void TimerSelection250_Click(object sender, EventArgs e)
-        {
-            timer.Interval = 250;
-            TimerSelection40.Checked = false;
-            TimerSelection10.Checked = false;
-            TimerSelection100.Checked = false;
-            TimerSelection250.Checked = true;
-            TimerSelection500.Checked = false;
-            TimerSelection1000.Checked = false;
-        }
-
-        private void TimerSelection500_Click(object sender, EventArgs e)
-        {
-            timer.Interval = 500;
-            TimerSelection40.Checked = false;
-            TimerSelection10.Checked = false;
-            TimerSelection100.Checked = false;
-            TimerSelection250.Checked = false;
-            TimerSelection500.Checked = true;
-            TimerSelection1000.Checked = false;
-        }
-
-        private void TimerSelection1000_Click(object sender, EventArgs e)
-        {
-            timer.Interval = 1000;
-            TimerSelection40.Checked = false;
-            TimerSelection10.Checked = false;
-            TimerSelection100.Checked = false;
-            TimerSelection250.Checked = false;
-            TimerSelection500.Checked = false;
-            TimerSelection1000.Checked = true;
-        }
-
-        private void TimerSelection40_Click(object sender, EventArgs e)
-        {
-            timer.Interval = 40;
-            TimerSelection40.Checked = true;
-            TimerSelection10.Checked = false;
-            TimerSelection100.Checked = false;
-            TimerSelection250.Checked = false;
-            TimerSelection500.Checked = false;
-            TimerSelection1000.Checked = false;
-        }
-
-        private void TimerSelection10_Click(object sender, EventArgs e)
-        {
-            timer.Interval = 10;
-            TimerSelection40.Checked = false;
-            TimerSelection10.Checked = true;
-            TimerSelection100.Checked = false;
-            TimerSelection250.Checked = false;
-            TimerSelection500.Checked = false;
-            TimerSelection1000.Checked = false;
-        }
+        
 
         #endregion
 
