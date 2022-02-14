@@ -441,78 +441,28 @@ namespace GameOfLife2
             universe = newUniverse.Clone() as bool[,];
             graphicsPanel1.Invalidate();
         }
-        private void GridSetting10x10_Click(object sender, EventArgs e)
-        {
-            SetUniverseSize(10.0f, 10.0f);
-            GridSetting10x10.Checked = true;
-            GridSetting15x15.Checked = false;
-            GridSetting20x20.Checked = false;
-            GridSetting25x25.Checked = false;
-            GridSetting30x30.Checked = false;
-            GridSetting35x35.Checked = false;
-            graphicsPanel1.Invalidate();
-        }
-        private void GridSetting15x15_Click(object sender, EventArgs e)
-        {
-            SetUniverseSize(15.0f, 15.0f);
-            GridSetting10x10.Checked = false;
-            GridSetting15x15.Checked = true;
-            GridSetting20x20.Checked = false;
-            GridSetting25x25.Checked = false;
-            GridSetting30x30.Checked = false;
-            GridSetting35x35.Checked = false;
-            graphicsPanel1.Invalidate();
-        }
-        private void GridSetting20x20_Click(object sender, EventArgs e)
-        {
-            SetUniverseSize(20.0f, 20.0f);
-            GridSetting10x10.Checked = false;
-            GridSetting15x15.Checked = false;
-            GridSetting20x20.Checked = true;
-            GridSetting25x25.Checked = false;
-            GridSetting30x30.Checked = false;
-            GridSetting35x35.Checked = false;
-            graphicsPanel1.Invalidate();
-        }
-        private void GridSetting25x25_Click(object sender, EventArgs e)
-        {
-            SetUniverseSize(25.0f, 25.0f);
-            GridSetting10x10.Checked = false;
-            GridSetting15x15.Checked = false;
-            GridSetting20x20.Checked = false;
-            GridSetting25x25.Checked = true;
-            GridSetting30x30.Checked = false;
-            GridSetting35x35.Checked = false;
-            graphicsPanel1.Invalidate();
-        }
-        private void GridSetting30x30_Click(object sender, EventArgs e)
-        {
-            SetUniverseSize(30.0f, 30.0f);
-            GridSetting10x10.Checked = false;
-            GridSetting15x15.Checked = false;
-            GridSetting20x20.Checked = false;
-            GridSetting25x25.Checked = false;
-            GridSetting30x30.Checked = true;
-            GridSetting35x35.Checked = false;
-            graphicsPanel1.Invalidate();
-        }
-        private void GridSetting35x35_Click(object sender, EventArgs e)
-        {
-            SetUniverseSize(35.0f, 35.0f);
-            GridSetting10x10.Checked = false;
-            GridSetting15x15.Checked = false;
-            GridSetting20x20.Checked = false;
-            GridSetting25x25.Checked = false;
-            GridSetting30x30.Checked = false;
-            GridSetting35x35.Checked = true;
-            graphicsPanel1.Invalidate();
-        }
+
         #endregion
 
 
-        #region TimerSettings
+        #region Timer Settings
 
+        private void toolStripButtonTimerDialog_Click(object sender, EventArgs e)
+        {
+            TimerDialog tDlg = new TimerDialog();
+            tDlg.TimerSpeed = timer.Interval;
 
+            if (DialogResult.OK == tDlg.ShowDialog())
+            {
+                if (tDlg.TimerSpeed <= 0)
+                {
+                    tDlg.TimerSpeed = 1;
+                }
+                timer.Interval = tDlg.TimerSpeed;
+            }
+
+            tDlg.Dispose();
+        }
 
         #endregion
 
@@ -567,23 +517,21 @@ namespace GameOfLife2
         }
 
 
+
         #endregion
 
-        private void toolStripButtonTimerDialog_Click(object sender, EventArgs e)
+        private void GridSettingsButton_Click(object sender, EventArgs e)
         {
-            TimerDialog tDlg = new TimerDialog();
-            tDlg.TimerSpeed = timer.Interval;
+            GridSizeDialog gridDlg = new GridSizeDialog();
+            gridDlg.Width = universe.GetLength(0);
+            gridDlg.Height = universe.GetLength(1);
 
-            if (DialogResult.OK == tDlg.ShowDialog())
+            if (DialogResult.OK == gridDlg.ShowDialog())
             {
-                if (tDlg.TimerSpeed <= 0)
-                {
-                    tDlg.TimerSpeed = 1;
-                }
-                timer.Interval = tDlg.TimerSpeed;
+                SetUniverseSize(gridDlg.Width, gridDlg.Height);
+                graphicsPanel1.Invalidate();
             }
-
-            tDlg.Dispose();
+            gridDlg.Dispose();
         }
     }
 }
