@@ -32,7 +32,10 @@ namespace GameOfLife2
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripFileNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,26 +56,15 @@ namespace GameOfLife2
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelFiniteOrToroidal = new System.Windows.Forms.ToolStripStatusLabel();
-            this.graphicsPanel1 = new GameOfLife2.GraphicsPanel();
-            this.TimerButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.TimerSelection1000 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TimerSelection500 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TimerSelection250 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TimerSelection100 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TimerSelection40 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TimerSelection10 = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripButtonNew = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonPlay = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonNextGeneration = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.EdgesSettingsButton = new System.Windows.Forms.ToolStripSplitButton();
             this.FiniteBorderMenuChoice = new System.Windows.Forms.ToolStripMenuItem();
             this.ToroidalBorderMenuChoice = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,9 +75,21 @@ namespace GameOfLife2
             this.GridSetting25x25 = new System.Windows.Forms.ToolStripMenuItem();
             this.GridSetting30x30 = new System.Windows.Forms.ToolStripMenuItem();
             this.GridSetting35x35 = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripFileNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.TimerButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.TimerSelection1000 = new System.Windows.Forms.ToolStripMenuItem();
+            this.TimerSelection500 = new System.Windows.Forms.ToolStripMenuItem();
+            this.TimerSelection250 = new System.Windows.Forms.ToolStripMenuItem();
+            this.TimerSelection100 = new System.Windows.Forms.ToolStripMenuItem();
+            this.TimerSelection40 = new System.Windows.Forms.ToolStripMenuItem();
+            this.TimerSelection10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelFiniteOrToroidal = new System.Windows.Forms.ToolStripStatusLabel();
+            this.backgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cellColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphicsPanel1 = new GameOfLife2.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -120,10 +124,38 @@ namespace GameOfLife2
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // newToolStripFileNew
+            // 
+            this.newToolStripFileNew.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripFileNew.Image")));
+            this.newToolStripFileNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newToolStripFileNew.Name = "newToolStripFileNew";
+            this.newToolStripFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripFileNew.Size = new System.Drawing.Size(146, 22);
+            this.newToolStripFileNew.Text = "&New";
+            this.newToolStripFileNew.Click += new System.EventHandler(this.newToolStripFileNew_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
+            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Text = "&Open";
+            // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
+            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAsToolStripMenuItem
             // 
@@ -178,7 +210,7 @@ namespace GameOfLife2
             this.edgesToolStripMenuItem,
             this.colorToolStripMenuItem});
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // edgesToolStripMenuItem
@@ -187,7 +219,7 @@ namespace GameOfLife2
             this.toroidalToolStripMenuItem,
             this.finiteToolStripMenuItem});
             this.edgesToolStripMenuItem.Name = "edgesToolStripMenuItem";
-            this.edgesToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.edgesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.edgesToolStripMenuItem.Text = "Edges";
             // 
             // toroidalToolStripMenuItem
@@ -208,14 +240,19 @@ namespace GameOfLife2
             // 
             // colorToolStripMenuItem
             // 
+            this.colorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetToolStripMenuItem,
+            this.backgroundToolStripMenuItem,
+            this.cellColorToolStripMenuItem,
+            this.gridColorToolStripMenuItem});
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.colorToolStripMenuItem.Text = "Color";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -279,116 +316,6 @@ namespace GameOfLife2
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TimerButton,
-            this.toolStripStatusLabelGenerations,
-            this.toolStripStatusLabelFiniteOrToroidal});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 323);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(573, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabelGenerations
-            // 
-            this.toolStripStatusLabelGenerations.Name = "toolStripStatusLabelGenerations";
-            this.toolStripStatusLabelGenerations.Size = new System.Drawing.Size(90, 17);
-            this.toolStripStatusLabelGenerations.Text = "Generations = 0";
-            // 
-            // toolStripStatusLabelFiniteOrToroidal
-            // 
-            this.toolStripStatusLabelFiniteOrToroidal.Name = "toolStripStatusLabelFiniteOrToroidal";
-            this.toolStripStatusLabelFiniteOrToroidal.Size = new System.Drawing.Size(94, 17);
-            this.toolStripStatusLabelFiniteOrToroidal.Text = "Edges = Toroidal";
-            // 
-            // graphicsPanel1
-            // 
-            this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsPanel1.Location = new System.Drawing.Point(0, 49);
-            this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(573, 274);
-            this.graphicsPanel1.TabIndex = 3;
-            this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
-            this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
-            // 
-            // TimerButton
-            // 
-            this.TimerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TimerButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TimerSelection1000,
-            this.TimerSelection500,
-            this.TimerSelection250,
-            this.TimerSelection100,
-            this.TimerSelection40,
-            this.TimerSelection10});
-            this.TimerButton.Image = global::GameOfLife2.Properties.Resources.TimerButton;
-            this.TimerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TimerButton.Name = "TimerButton";
-            this.TimerButton.Size = new System.Drawing.Size(32, 20);
-            this.TimerButton.Text = "toolStripSplitButton1";
-            // 
-            // TimerSelection1000
-            // 
-            this.TimerSelection1000.Name = "TimerSelection1000";
-            this.TimerSelection1000.Size = new System.Drawing.Size(180, 22);
-            this.TimerSelection1000.Text = "1";
-            this.TimerSelection1000.Click += new System.EventHandler(this.TimerSelection1000_Click);
-            // 
-            // TimerSelection500
-            // 
-            this.TimerSelection500.Name = "TimerSelection500";
-            this.TimerSelection500.Size = new System.Drawing.Size(180, 22);
-            this.TimerSelection500.Text = "1/2";
-            this.TimerSelection500.Click += new System.EventHandler(this.TimerSelection500_Click);
-            // 
-            // TimerSelection250
-            // 
-            this.TimerSelection250.Name = "TimerSelection250";
-            this.TimerSelection250.Size = new System.Drawing.Size(180, 22);
-            this.TimerSelection250.Text = "1/4";
-            this.TimerSelection250.Click += new System.EventHandler(this.TimerSelection250_Click);
-            // 
-            // TimerSelection100
-            // 
-            this.TimerSelection100.Checked = true;
-            this.TimerSelection100.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.TimerSelection100.Name = "TimerSelection100";
-            this.TimerSelection100.Size = new System.Drawing.Size(180, 22);
-            this.TimerSelection100.Text = "1/10";
-            this.TimerSelection100.Click += new System.EventHandler(this.TimerSelection100_Click);
-            // 
-            // TimerSelection40
-            // 
-            this.TimerSelection40.Name = "TimerSelection40";
-            this.TimerSelection40.Size = new System.Drawing.Size(180, 22);
-            this.TimerSelection40.Text = "1/25";
-            this.TimerSelection40.Click += new System.EventHandler(this.TimerSelection40_Click);
-            // 
-            // TimerSelection10
-            // 
-            this.TimerSelection10.Name = "TimerSelection10";
-            this.TimerSelection10.Size = new System.Drawing.Size(180, 22);
-            this.TimerSelection10.Text = "1/100";
-            this.TimerSelection10.Click += new System.EventHandler(this.TimerSelection10_Click);
-            // 
             // newToolStripButtonNew
             // 
             this.newToolStripButtonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -416,6 +343,16 @@ namespace GameOfLife2
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.saveToolStripButton.Text = "&Save";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButtonPlay
             // 
@@ -446,6 +383,11 @@ namespace GameOfLife2
             this.toolStripButtonNextGeneration.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonNextGeneration.Text = "toolStripButton3";
             this.toolStripButtonNextGeneration.Click += new System.EventHandler(this.toolStripButtonNextGeneration_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // EdgesSettingsButton
             // 
@@ -539,33 +481,128 @@ namespace GameOfLife2
             this.GridSetting35x35.Text = "35 x 35";
             this.GridSetting35x35.Click += new System.EventHandler(this.GridSetting35x35_Click);
             // 
-            // newToolStripFileNew
+            // statusStrip1
             // 
-            this.newToolStripFileNew.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripFileNew.Image")));
-            this.newToolStripFileNew.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripFileNew.Name = "newToolStripFileNew";
-            this.newToolStripFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripFileNew.Size = new System.Drawing.Size(146, 22);
-            this.newToolStripFileNew.Text = "&New";
-            this.newToolStripFileNew.Click += new System.EventHandler(this.newToolStripFileNew_Click);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TimerButton,
+            this.toolStripStatusLabelGenerations,
+            this.toolStripStatusLabelFiniteOrToroidal});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 323);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(573, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // openToolStripMenuItem
+            // TimerButton
             // 
-            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.openToolStripMenuItem.Text = "&Open";
+            this.TimerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TimerButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TimerSelection1000,
+            this.TimerSelection500,
+            this.TimerSelection250,
+            this.TimerSelection100,
+            this.TimerSelection40,
+            this.TimerSelection10});
+            this.TimerButton.Image = global::GameOfLife2.Properties.Resources.TimerButton;
+            this.TimerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TimerButton.Name = "TimerButton";
+            this.TimerButton.Size = new System.Drawing.Size(32, 20);
+            this.TimerButton.Text = "toolStripSplitButton1";
             // 
-            // saveToolStripMenuItem
+            // TimerSelection1000
             // 
-            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.saveToolStripMenuItem.Text = "&Save";
+            this.TimerSelection1000.Name = "TimerSelection1000";
+            this.TimerSelection1000.Size = new System.Drawing.Size(103, 22);
+            this.TimerSelection1000.Text = "1";
+            this.TimerSelection1000.Click += new System.EventHandler(this.TimerSelection1000_Click);
+            // 
+            // TimerSelection500
+            // 
+            this.TimerSelection500.Name = "TimerSelection500";
+            this.TimerSelection500.Size = new System.Drawing.Size(103, 22);
+            this.TimerSelection500.Text = "1/2";
+            this.TimerSelection500.Click += new System.EventHandler(this.TimerSelection500_Click);
+            // 
+            // TimerSelection250
+            // 
+            this.TimerSelection250.Name = "TimerSelection250";
+            this.TimerSelection250.Size = new System.Drawing.Size(103, 22);
+            this.TimerSelection250.Text = "1/4";
+            this.TimerSelection250.Click += new System.EventHandler(this.TimerSelection250_Click);
+            // 
+            // TimerSelection100
+            // 
+            this.TimerSelection100.Checked = true;
+            this.TimerSelection100.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.TimerSelection100.Name = "TimerSelection100";
+            this.TimerSelection100.Size = new System.Drawing.Size(103, 22);
+            this.TimerSelection100.Text = "1/10";
+            this.TimerSelection100.Click += new System.EventHandler(this.TimerSelection100_Click);
+            // 
+            // TimerSelection40
+            // 
+            this.TimerSelection40.Name = "TimerSelection40";
+            this.TimerSelection40.Size = new System.Drawing.Size(103, 22);
+            this.TimerSelection40.Text = "1/25";
+            this.TimerSelection40.Click += new System.EventHandler(this.TimerSelection40_Click);
+            // 
+            // TimerSelection10
+            // 
+            this.TimerSelection10.Name = "TimerSelection10";
+            this.TimerSelection10.Size = new System.Drawing.Size(103, 22);
+            this.TimerSelection10.Text = "1/100";
+            this.TimerSelection10.Click += new System.EventHandler(this.TimerSelection10_Click);
+            // 
+            // toolStripStatusLabelGenerations
+            // 
+            this.toolStripStatusLabelGenerations.Name = "toolStripStatusLabelGenerations";
+            this.toolStripStatusLabelGenerations.Size = new System.Drawing.Size(90, 17);
+            this.toolStripStatusLabelGenerations.Text = "Generations = 0";
+            // 
+            // toolStripStatusLabelFiniteOrToroidal
+            // 
+            this.toolStripStatusLabelFiniteOrToroidal.Name = "toolStripStatusLabelFiniteOrToroidal";
+            this.toolStripStatusLabelFiniteOrToroidal.Size = new System.Drawing.Size(94, 17);
+            this.toolStripStatusLabelFiniteOrToroidal.Text = "Edges = Toroidal";
+            // 
+            // backgroundToolStripMenuItem
+            // 
+            this.backgroundToolStripMenuItem.Name = "backgroundToolStripMenuItem";
+            this.backgroundToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backgroundToolStripMenuItem.Text = "Background";
+            this.backgroundToolStripMenuItem.Click += new System.EventHandler(this.backgroundToolStripMenuItem_Click);
+            // 
+            // cellColorToolStripMenuItem
+            // 
+            this.cellColorToolStripMenuItem.Name = "cellColorToolStripMenuItem";
+            this.cellColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cellColorToolStripMenuItem.Text = "Cell Color";
+            this.cellColorToolStripMenuItem.Click += new System.EventHandler(this.cellColorToolStripMenuItem_Click);
+            // 
+            // gridColorToolStripMenuItem
+            // 
+            this.gridColorToolStripMenuItem.Name = "gridColorToolStripMenuItem";
+            this.gridColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gridColorToolStripMenuItem.Text = "Grid Color";
+            this.gridColorToolStripMenuItem.Click += new System.EventHandler(this.gridColorToolStripMenuItem_Click);
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Text = "&Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            // 
+            // graphicsPanel1
+            // 
+            this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
+            this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphicsPanel1.Location = new System.Drawing.Point(0, 49);
+            this.graphicsPanel1.Name = "graphicsPanel1";
+            this.graphicsPanel1.Size = new System.Drawing.Size(573, 274);
+            this.graphicsPanel1.TabIndex = 3;
+            this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
+            this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
             // 
             // Form1
             // 
@@ -648,6 +685,10 @@ namespace GameOfLife2
         private System.Windows.Forms.ToolStripMenuItem TimerSelection100;
         private System.Windows.Forms.ToolStripMenuItem TimerSelection40;
         private System.Windows.Forms.ToolStripMenuItem TimerSelection10;
+        private System.Windows.Forms.ToolStripMenuItem backgroundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cellColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gridColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }
 
