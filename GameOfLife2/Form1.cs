@@ -309,19 +309,38 @@ namespace GameOfLife2
                         stringFormat.Alignment = StringAlignment.Center;
                         stringFormat.LineAlignment = StringAlignment.Center;
 
+                        Brush neighborBrush = new SolidBrush(Color.Red);
+                        
                         RectangleF rect = new RectangleF(cellRect.X, cellRect.Y, cellWidth, cellHeight);
                         if (isFinite)
                         {
-                            if (universe[x, y] || CountNeighborsFinite(x, y) > 0)
+                            int neighbors = CountNeighborsFinite(x, y);
+                            if (universe[x, y] || neighbors > 0)
                             {
-                                e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), font, Brushes.Red, rect, stringFormat);
+                                if (neighbors == 2 || neighbors == 3)
+                                {
+
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, rect, stringFormat);
+                                }
+                                else
+                                {
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, rect, stringFormat);
+                                }
                             }
                         }
                         else if (!isFinite)
                         {
-                            if (universe[x, y] || CountNeighborsToroidal(x, y) > 0)
+                            int neighbors = CountNeighborsToroidal(x, y);
+                            if (universe[x, y] || neighbors > 0)
                             {
-                                e.Graphics.DrawString(CountNeighborsToroidal(x, y).ToString(), font, Brushes.Red, rect, stringFormat);
+                                if (neighbors == 2 || neighbors == 3)
+                                {
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, rect, stringFormat);
+                                }
+                                else
+                                {
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, rect, stringFormat);
+                                }
                             }
                         }
                     }
@@ -550,7 +569,7 @@ namespace GameOfLife2
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             graphicsPanel1.BackColor = Color.White;
-            cellColor = Color.Black;
+            cellColor = Color.DarkGray;
             gridColor = Color.Gray;
 
             graphicsPanel1.Invalidate();
