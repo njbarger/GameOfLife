@@ -80,6 +80,7 @@ namespace GameOfLife2
             this.finiteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toroidalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabelLivingCellCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.graphicsPanel1 = new GameOfLife2.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -119,7 +120,7 @@ namespace GameOfLife2
             this.newToolStripFileNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripFileNew.Name = "newToolStripFileNew";
             this.newToolStripFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripFileNew.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripFileNew.Size = new System.Drawing.Size(146, 22);
             this.newToolStripFileNew.Text = "&New";
             this.newToolStripFileNew.Click += new System.EventHandler(this.newToolStripFileNew_Click);
             // 
@@ -412,7 +413,8 @@ namespace GameOfLife2
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelGenerations,
-            this.toolStripStatusLabelFiniteOrToroidal});
+            this.toolStripStatusLabelFiniteOrToroidal,
+            this.toolStripStatusLabelLivingCellCount});
             this.statusStrip1.Location = new System.Drawing.Point(0, 323);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(573, 22);
@@ -510,6 +512,12 @@ namespace GameOfLife2
             this.gridSizeToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.gridSizeToolStripMenuItem.Text = "Grid Size";
             // 
+            // toolStripStatusLabelLivingCellCount
+            // 
+            this.toolStripStatusLabelLivingCellCount.Name = "toolStripStatusLabelLivingCellCount";
+            this.toolStripStatusLabelLivingCellCount.Size = new System.Drawing.Size(87, 17);
+            this.toolStripStatusLabelLivingCellCount.Text = "Living Cells = 0";
+            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
@@ -597,6 +605,7 @@ namespace GameOfLife2
         private System.Windows.Forms.ToolStripMenuItem toroidalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripButton toolStripButtonTimerDialog;
         private System.Windows.Forms.ToolStripMenuItem gridSizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelLivingCellCount;
     }
 }
 

@@ -30,6 +30,7 @@ namespace GameOfLife2
         float universeSize = 20.0f;
         // Generation count
         int generations = 0;
+        int liveCellCount = 0;
 
         // File properties
         string fileName = "";
@@ -127,6 +128,7 @@ namespace GameOfLife2
 
             // Update status strip generations
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+
             if (isFinite)
             {
                 toolStripStatusLabelFiniteOrToroidal.Text = "Edges = " + "Finite";
@@ -135,6 +137,9 @@ namespace GameOfLife2
             {
                 toolStripStatusLabelFiniteOrToroidal.Text = "Edges = " + "Toroidal";
             }
+
+            ShowLivingCells();
+
             //copy from scratchPad to universe
             universe = scratchPad.Clone() as bool[,];
 
@@ -237,6 +242,23 @@ namespace GameOfLife2
             NextGeneration();
         }
 
+        private void ShowLivingCells()
+        {
+            liveCellCount = 0;
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    if (universe[x, y])
+                    {
+                        liveCellCount++;
+                    }
+                }
+            }
+
+            toolStripStatusLabelLivingCellCount.Text = "Living Cells = " + liveCellCount.ToString();
+        }
+
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
@@ -301,6 +323,7 @@ namespace GameOfLife2
                 // Toggle the cell's state
                 universe[(int)x, (int)y] = !universe[(int)x, (int)y];
 
+                ShowLivingCells();
                 graphicsPanel1.Invalidate();
             }
         }
@@ -331,6 +354,7 @@ namespace GameOfLife2
         {
             isSaved = false;
             fileName = "";
+            liveCellCount = 0;
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 for (int x = 0; x < universe.GetLength(1); x++)
@@ -348,6 +372,7 @@ namespace GameOfLife2
         {
             isSaved = false;
             fileName = "";
+            liveCellCount = 0;
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 for (int x = 0; x < universe.GetLength(1); x++)
@@ -453,6 +478,7 @@ namespace GameOfLife2
                 }
             }
             universe = newUniverse.Clone() as bool[,];
+            ShowLivingCells();
             graphicsPanel1.Invalidate();
         }
         private void GridSettingsButton_Click(object sender, EventArgs e)
@@ -549,6 +575,8 @@ namespace GameOfLife2
 
         #endregion
 
+        #region Save/SaveAs
+
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveDlg = new SaveFileDialog();
@@ -566,6 +594,10 @@ namespace GameOfLife2
                     String currentRow = string.Empty;
                     for (int x = 0; x < universe.GetLength(1); x++)
                     {
+                        if (x >= universe.GetLength(0) || y >= universe.GetLength(1))
+                        {
+                            currentRow += ".";
+                        }
                         if (universe[x, y])
                         {
                             currentRow += "O";
@@ -584,6 +616,47 @@ namespace GameOfLife2
                 writer.Close();
             }
         }
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fileName == "")
+            {
+                saveAsToolStripMenuItem_Click(sender, e);
+            }
+            else
+            {
+                StreamWriter writer = new StreamWriter(fileName);
+
+                writer.WriteLine(@"!{fileName}");
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    String currentRow = string.Empty;
+                    for (int x = 0; x < universe.GetLength(0); x++)
+                    {
+                        if (x >= universe.GetLength(0) || y >= universe.GetLength(1))
+                        {
+                            currentRow += ".";
+                        }
+                        if (universe[x, y])
+                        {
+                            currentRow += "O";
+                        }
+                        else
+                        {
+                            currentRow += ".";
+                        }
+                    }
+
+                    writer.WriteLine(currentRow);
+                }
+
+                isSaved = true;
+                writer.Close();
+            }
+        }
+
+        #endregion
+
+        #region Open
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -646,41 +719,11 @@ namespace GameOfLife2
                 reader.Close();
             }
 
+            ShowLivingCells();
             graphicsPanel1.Invalidate();
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (fileName == "")
-            {
-                saveAsToolStripMenuItem_Click(sender, e);
-            }
-            else
-            {
-                StreamWriter writer = new StreamWriter(fileName);
+        #endregion
 
-                writer.WriteLine(@"!{fileName}");
-                for (int y = 0; y < universe.GetLength(0); y++)
-                {
-                    String currentRow = string.Empty;
-                    for (int x = 0; x < universe.GetLength(1); x++)
-                    {
-                        if (universe[x, y])
-                        {
-                            currentRow += "O";
-                        }
-                        else
-                        {
-                            currentRow += ".";
-                        }
-                    }
-
-                    writer.WriteLine(currentRow);
-                }
-
-                isSaved = true;
-                writer.Close();
-            }
-        }
     }
 }
