@@ -441,6 +441,19 @@ namespace GameOfLife2
             universe = newUniverse.Clone() as bool[,];
             graphicsPanel1.Invalidate();
         }
+        private void GridSettingsButton_Click(object sender, EventArgs e)
+        {
+            GridSizeDialog gridDlg = new GridSizeDialog();
+            gridDlg.Width = universe.GetLength(0);
+            gridDlg.Height = universe.GetLength(1);
+
+            if (DialogResult.OK == gridDlg.ShowDialog())
+            {
+                SetUniverseSize(gridDlg.Width, gridDlg.Height);
+                graphicsPanel1.Invalidate();
+            }
+            gridDlg.Dispose();
+        }
 
         #endregion
 
@@ -465,6 +478,7 @@ namespace GameOfLife2
         }
 
         #endregion
+
 
         #region Color Settings
 
@@ -520,18 +534,6 @@ namespace GameOfLife2
 
         #endregion
 
-        private void GridSettingsButton_Click(object sender, EventArgs e)
-        {
-            GridSizeDialog gridDlg = new GridSizeDialog();
-            gridDlg.Width = universe.GetLength(0);
-            gridDlg.Height = universe.GetLength(1);
-
-            if (DialogResult.OK == gridDlg.ShowDialog())
-            {
-                SetUniverseSize(gridDlg.Width, gridDlg.Height);
-                graphicsPanel1.Invalidate();
-            }
-            gridDlg.Dispose();
-        }
+        
     }
 }
