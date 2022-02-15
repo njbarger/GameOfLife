@@ -31,6 +31,10 @@ namespace GameOfLife2
         // Generation count
         int generations = 0;
 
+        // File properties
+        string fileName = "";
+        bool isSaved = false;
+
         #region Properties
 
 
@@ -321,10 +325,12 @@ namespace GameOfLife2
         #endregion
 
 
-        #region NewTemplateButtons
+        #region New Template Buttons
 
         private void newToolStripFileNew_Click(object sender, EventArgs e)
         {
+            isSaved = false;
+            fileName = "";
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 for (int x = 0; x < universe.GetLength(1); x++)
@@ -340,6 +346,8 @@ namespace GameOfLife2
 
         private void newToolStripButtonNew_Click(object sender, EventArgs e)
         {
+            isSaved = false;
+            fileName = "";
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 for (int x = 0; x < universe.GetLength(1); x++)
@@ -347,6 +355,7 @@ namespace GameOfLife2
                     universe[x, y] = false;
                 }
             }
+
             // Update status strip generations
             generations = 0;
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
@@ -570,6 +579,8 @@ namespace GameOfLife2
                     writer.WriteLine(currentRow);
                 }
 
+                isSaved = true;
+                fileName = saveDlg.FileName;
                 writer.Close();
             }
         }
@@ -631,15 +642,45 @@ namespace GameOfLife2
                     }
                 }
 
+                fileName = openDlg.FileName;
                 reader.Close();
             }
 
             graphicsPanel1.Invalidate();
         }
 
-        private void saveToolStripButton_Click(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (fileName == "")
+            {
+                saveAsToolStripMenuItem_Click(sender, e);
+            }
+            else
+            {
+                StreamWriter writer = new StreamWriter(fileName);
 
+                writer.WriteLine(@"!{fileName}");
+                for (int y = 0; y < universe.GetLength(0); y++)
+                {
+                    String currentRow = string.Empty;
+                    for (int x = 0; x < universe.GetLength(1); x++)
+                    {
+                        if (universe[x, y])
+                        {
+                            currentRow += "O";
+                        }
+                        else
+                        {
+                            currentRow += ".";
+                        }
+                    }
+
+                    writer.WriteLine(currentRow);
+                }
+
+                isSaved = true;
+                writer.Close();
+            }
         }
     }
 }
