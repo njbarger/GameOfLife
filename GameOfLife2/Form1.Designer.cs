@@ -39,8 +39,6 @@ namespace GameOfLife2
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,8 +114,6 @@ namespace GameOfLife2
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator1,
-            this.printToolStripMenuItem,
-            this.printPreviewToolStripMenuItem,
             this.toolStripSeparator2,
             this.exitToolStripFileExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -130,7 +126,7 @@ namespace GameOfLife2
             this.newToolStripFileNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripFileNew.Name = "newToolStripFileNew";
             this.newToolStripFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripFileNew.Size = new System.Drawing.Size(146, 22);
+            this.newToolStripFileNew.Size = new System.Drawing.Size(180, 22);
             this.newToolStripFileNew.Text = "&New";
             this.newToolStripFileNew.Click += new System.EventHandler(this.newToolStripFileNew_Click);
             // 
@@ -170,21 +166,6 @@ namespace GameOfLife2
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
-            // 
-            // printToolStripMenuItem
-            // 
-            this.printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.printToolStripMenuItem.Text = "&Print";
-            // 
-            // printPreviewToolStripMenuItem
-            // 
-            this.printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.printPreviewToolStripMenuItem.Text = "Print Pre&view";
             // 
             // toolStripSeparator2
             // 
@@ -625,8 +606,6 @@ namespace GameOfLife2
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem printPreviewToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripFileExit;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
