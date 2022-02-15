@@ -18,10 +18,11 @@ namespace GameOfLife2
         bool[,] universe;
         bool[,] scratchPad;
         bool isFinite = false;
+        bool showNeighbors = true;
 
         // Drawing colors
         Color gridColor = Color.Gray;
-        Color cellColor = Color.Black;
+        Color cellColor = Color.DarkGray;
 
         // The Timer class
         Timer timer = new Timer();
@@ -34,7 +35,6 @@ namespace GameOfLife2
 
         // File properties
         string fileName = "";
-        bool isSaved = false;
 
         #region Properties
 
@@ -298,6 +298,33 @@ namespace GameOfLife2
 
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+
+                    // Fill with Neighbor Count
+
+                    if (showNeighbors)
+                    {
+                        Font font = new Font("Arial", 8.0f);
+
+                        StringFormat stringFormat = new StringFormat();
+                        stringFormat.Alignment = StringAlignment.Center;
+                        stringFormat.LineAlignment = StringAlignment.Center;
+
+                        RectangleF rect = new RectangleF(cellRect.X, cellRect.Y, cellWidth, cellHeight);
+                        if (isFinite)
+                        {
+                            if (universe[x, y] || CountNeighborsFinite(x, y) > 0)
+                            {
+                                e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), font, Brushes.Red, rect, stringFormat);
+                            }
+                        }
+                        else if (!isFinite)
+                        {
+                            if (universe[x, y] || CountNeighborsToroidal(x, y) > 0)
+                            {
+                                e.Graphics.DrawString(CountNeighborsToroidal(x, y).ToString(), font, Brushes.Red, rect, stringFormat);
+                            }
+                        }
+                    }
                 }
             }
             // Cleaning up pens and brushes
@@ -311,8 +338,8 @@ namespace GameOfLife2
             if (e.Button == MouseButtons.Left)
             {
                 // Calculate the width and height of each cell in pixels
-                float cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
-                float cellHeight = graphicsPanel1.ClientSize.Height / universe.GetLength(1);
+                float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
+                float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
 
                 // Calculate the cell that was clicked in
                 // CELL X = MOUSE X / CELL WIDTH
@@ -352,7 +379,6 @@ namespace GameOfLife2
 
         private void newToolStripFileNew_Click(object sender, EventArgs e)
         {
-            isSaved = false;
             fileName = "";
             liveCellCount = 0;
             for (int y = 0; y < universe.GetLength(0); y++)
@@ -370,7 +396,6 @@ namespace GameOfLife2
 
         private void newToolStripButtonNew_Click(object sender, EventArgs e)
         {
-            isSaved = false;
             fileName = "";
             liveCellCount = 0;
             for (int y = 0; y < universe.GetLength(0); y++)
@@ -611,7 +636,6 @@ namespace GameOfLife2
                     writer.WriteLine(currentRow);
                 }
 
-                isSaved = true;
                 fileName = saveDlg.FileName;
                 writer.Close();
             }
@@ -649,7 +673,6 @@ namespace GameOfLife2
                     writer.WriteLine(currentRow);
                 }
 
-                isSaved = true;
                 writer.Close();
             }
         }
