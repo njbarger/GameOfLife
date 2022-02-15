@@ -57,9 +57,9 @@ namespace GameOfLife2
 
             if (isFinite)
             {
-                for (int y = 0; y < universe.GetLength(0); y++)
+                for (int y = 0; y < universe.GetLength(1); y++)
                 {
-                    for (int x = 0; x < universe.GetLength(1); x++)
+                    for (int x = 0; x < universe.GetLength(0); x++)
                     {
                         // Apply Life's Rules
                         int neighborhood = CountNeighborsFinite(x, y);
@@ -88,9 +88,9 @@ namespace GameOfLife2
             }
             else
             {
-                for (int y = 0; y < universe.GetLength(0); y++)
+                for (int y = 0; y < universe.GetLength(1); y++)
                 {
-                    for (int x = 0; x < universe.GetLength(1); x++)
+                    for (int x = 0; x < universe.GetLength(0); x++)
                     {
                         // Apply Life's Rules
                         int neighborhood = CountNeighborsToroidal(x, y);
@@ -425,34 +425,36 @@ namespace GameOfLife2
         private void SetUniverseSize(float widthSize, float heightSize)
         {
             bool[,] newUniverse = new bool[(int)widthSize, (int)heightSize];
-            for (int y = 0; y < newUniverse.GetLength(0); y++)
+            for (int y = 0; y < newUniverse.GetLength(1); y++)
             {
-                for (int x = 0; x < newUniverse.GetLength(1); x++)
+                for (int x = 0; x < newUniverse.GetLength(0); x++)
                 {
                     if (x >= universe.GetLength(0) || y >= universe.GetLength(1))
                     {
-                        continue;
+                        newUniverse[x, y] = false;
                     }
-                    else if (x >= newUniverse.GetLength(0) || y >= newUniverse.GetLength(1))
+                    else if (universe[x, y])
                     {
-                        continue;
+                        newUniverse[x, y] = true;
                     }
-                    newUniverse[x, y] = universe[x, y];
+                    else if (!universe[x, y])
+                    {
+                        newUniverse[x, y] = false;
+                    }
                 }
             }
             universe = newUniverse.Clone() as bool[,];
-            scratchPad = newUniverse.Clone() as bool[,];
             graphicsPanel1.Invalidate();
         }
         private void GridSettingsButton_Click(object sender, EventArgs e)
         {
             GridSizeDialog gridDlg = new GridSizeDialog();
-            gridDlg.Width = universe.GetLength(0);
-            gridDlg.Height = universe.GetLength(1);
+            gridDlg.GridWidth = universe.GetLength(0);
+            gridDlg.GridHeight = universe.GetLength(1);
 
             if (DialogResult.OK == gridDlg.ShowDialog())
             {
-                SetUniverseSize(gridDlg.Width, gridDlg.Height);
+                SetUniverseSize(gridDlg.GridWidth, gridDlg.GridHeight);
                 graphicsPanel1.Invalidate();
             }
             gridDlg.Dispose();
@@ -633,6 +635,11 @@ namespace GameOfLife2
             }
 
             graphicsPanel1.Invalidate();
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

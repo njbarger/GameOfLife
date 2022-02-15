@@ -16,7 +16,7 @@ namespace GameOfLife2
         {
             InitializeComponent();
         }
-        public float Width
+        public float GridWidth
         {
             get
             {
@@ -27,7 +27,7 @@ namespace GameOfLife2
                 numericUpDownWidth.Value = (decimal)value;
             }
         }
-        public float Height
+        public float GridHeight
         {
             get
             {
