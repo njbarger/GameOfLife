@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace GameOfLife2
 {
@@ -532,8 +534,41 @@ namespace GameOfLife2
 
 
 
+
         #endregion
 
-        
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDlg = new SaveFileDialog();
+            saveDlg.Filter = "All Files|*.*|Cells|*.cells";
+            saveDlg.FilterIndex = 2;
+            saveDlg.DefaultExt = "cells";
+
+            if (DialogResult.OK == saveDlg.ShowDialog())
+            {
+                StreamWriter writer = new StreamWriter(saveDlg.FileName);
+
+                writer.WriteLine("!Test Glider");
+                for (int y = 0; y < universe.GetLength(0); y++)
+                {
+                    String currentRow = string.Empty;
+                    for (int x = 0; x < universe.GetLength(1); x++)
+                    {
+                        if (universe[x, y])
+                        {
+                            currentRow += "O";
+                        }
+                        else
+                        {
+                            currentRow += ".";
+                        }
+                    }
+
+                    writer.WriteLine(currentRow);
+                }
+
+                writer.Close();
+            }
+        }
     }
 }
