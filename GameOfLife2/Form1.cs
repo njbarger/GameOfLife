@@ -441,6 +441,7 @@ namespace GameOfLife2
                 }
             }
             universe = newUniverse.Clone() as bool[,];
+            scratchPad = newUniverse.Clone() as bool[,];
             graphicsPanel1.Invalidate();
         }
         private void GridSettingsButton_Click(object sender, EventArgs e)
@@ -569,6 +570,69 @@ namespace GameOfLife2
 
                 writer.Close();
             }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.Filter = "All Files|*.*|Cells|*.cells";
+            openDlg.FilterIndex = 2;
+
+            if (DialogResult.OK == openDlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(openDlg.FileName);
+
+                float maxWidth = 0.0f;
+                float maxHeight = 0.0f;
+                int yCount = 0;
+
+                while (!reader.EndOfStream)
+                {
+                    string row = reader.ReadLine();
+                    if (row.StartsWith("!"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        maxHeight++;
+                        maxWidth = row.Length;
+                    }
+                }
+
+                SetUniverseSize(maxWidth, maxHeight);
+
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                while (!reader.EndOfStream)
+                {
+                    string row = reader.ReadLine();
+
+                    if (row.StartsWith("!"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        for (int x = 0; x < row.Length; x++)
+                        {
+                            if (row[x] == 'O')
+                            {
+                                universe[x, yCount] = true;
+                            }
+                            else if (row[x] == '.')
+                            {
+                                universe[x, yCount] = false;
+                            }
+                        }
+                        yCount++;
+                    }
+                }
+
+                reader.Close();
+            }
+
+            graphicsPanel1.Invalidate();
         }
     }
 }
