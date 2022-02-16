@@ -785,15 +785,17 @@ namespace GameOfLife2
 
         private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (neighborCountToolStripMenuItem.Checked || showNeighbors)
+            if (neighborCountToolStripMenuItem.Checked || showNeighborsToolStripMenuItem.Checked || showNeighbors)
             {
                 showNeighbors = false;
                 neighborCountToolStripMenuItem.Checked = false;
+                showNeighborsToolStripMenuItem.Checked = false;
             }
             else if (!neighborCountToolStripMenuItem.Checked || !showNeighbors)
             {
                 showNeighbors = true;
                 neighborCountToolStripMenuItem.Checked = true;
+                showNeighborsToolStripMenuItem.Checked = true;
             }
 
             graphicsPanel1.Invalidate();
@@ -801,15 +803,17 @@ namespace GameOfLife2
 
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (gridToolStripMenuItem.Checked || showGrid)
+            if (gridToolStripMenuItem.Checked || gridToolStripMenuItem1.Checked || showGrid)
             {
                 showGrid = false;
                 gridToolStripMenuItem.Checked = false;
+                gridToolStripMenuItem1.Checked = false;
             }
-            else if (!gridToolStripMenuItem.Checked || !showGrid)
+            else if (!gridToolStripMenuItem.Checked || !gridToolStripMenuItem1.Checked || !showGrid)
             {
                 showGrid = true;
                 gridToolStripMenuItem.Checked = true;
+                gridToolStripMenuItem1.Checked = true;
             }
 
             graphicsPanel1.Invalidate();
