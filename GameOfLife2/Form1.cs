@@ -19,6 +19,7 @@ namespace GameOfLife2
         bool[,] scratchPad;
         bool isFinite = false;
         bool showNeighbors = true;
+        bool showGrid = true;
 
         // Drawing colors
         Color gridColor = Color.Gray;
@@ -191,6 +192,7 @@ namespace GameOfLife2
 
             return neighborCount;
         }
+        
         private int CountNeighborsToroidal(int x, int y)
         {
             int neighborCount = 0;
@@ -297,10 +299,12 @@ namespace GameOfLife2
                     }
 
                     // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    if (showGrid)
+                    {
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    }
 
                     // Fill with Neighbor Count
-
                     if (showNeighbors)
                     {
                         Font font = new Font("Arial", 8.0f);
@@ -310,7 +314,7 @@ namespace GameOfLife2
                         stringFormat.LineAlignment = StringAlignment.Center;
 
                         Brush neighborBrush = new SolidBrush(Color.Red);
-                        
+
                         RectangleF rect = new RectangleF(cellRect.X, cellRect.Y, cellWidth, cellHeight);
                         if (isFinite)
                         {
@@ -344,8 +348,20 @@ namespace GameOfLife2
                             }
                         }
                     }
+
                 }
             }
+
+            //for (int y = 0; y < universe.GetLength(1); y++)
+            //{
+            //    for (int x = 0; x < universe.GetLength(0); x++)
+            //    {
+            //        if (x % 10 == 0)
+            //        {
+            //            e.Graphics.DrawLine(gridPen, )
+            //        }
+            //    }
+            //}
             // Cleaning up pens and brushes
             gridPen.Dispose();              //not the same as delete, but marks as "done" for garbage collector, thusly saving on memory
             cellBrush.Dispose();
@@ -767,5 +783,36 @@ namespace GameOfLife2
 
         #endregion
 
+        private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (neighborCountToolStripMenuItem.Checked || showNeighbors)
+            {
+                showNeighbors = false;
+                neighborCountToolStripMenuItem.Checked = false;
+            }
+            else if (!neighborCountToolStripMenuItem.Checked || !showNeighbors)
+            {
+                showNeighbors = true;
+                neighborCountToolStripMenuItem.Checked = true;
+            }
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (gridToolStripMenuItem.Checked || showGrid)
+            {
+                showGrid = false;
+                gridToolStripMenuItem.Checked = false;
+            }
+            else if (!gridToolStripMenuItem.Checked || !showGrid)
+            {
+                showGrid = true;
+                gridToolStripMenuItem.Checked = true;
+            }
+
+            graphicsPanel1.Invalidate();
+        }
     }
 }
