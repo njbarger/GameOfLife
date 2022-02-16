@@ -86,6 +86,9 @@ namespace GameOfLife2
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridSizeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new GameOfLife2.GraphicsPanel();
+            this.viewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showNeighborsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -96,6 +99,7 @@ namespace GameOfLife2
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem1,
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -402,7 +406,8 @@ namespace GameOfLife2
             this.GridSettingsButton.Image = global::GameOfLife2.Properties.Resources.GridSize;
             this.GridSettingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.GridSettingsButton.Name = "GridSettingsButton";
-            this.GridSettingsButton.Size = new System.Drawing.Size(29, 22);
+            this.GridSettingsButton.ShowDropDownArrow = false;
+            this.GridSettingsButton.Size = new System.Drawing.Size(20, 22);
             this.GridSettingsButton.Text = "Grid Size";
             this.GridSettingsButton.ToolTipText = "Grid Size";
             this.GridSettingsButton.Click += new System.EventHandler(this.GridSettingsButton_Click);
@@ -575,6 +580,33 @@ namespace GameOfLife2
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
             // 
+            // viewToolStripMenuItem1
+            // 
+            this.viewToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gridToolStripMenuItem1,
+            this.showNeighborsToolStripMenuItem});
+            this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem1.Text = "View";
+            // 
+            // gridToolStripMenuItem1
+            // 
+            this.gridToolStripMenuItem1.Checked = true;
+            this.gridToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gridToolStripMenuItem1.Name = "gridToolStripMenuItem1";
+            this.gridToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.gridToolStripMenuItem1.Text = "Grid";
+            this.gridToolStripMenuItem1.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
+            // 
+            // showNeighborsToolStripMenuItem
+            // 
+            this.showNeighborsToolStripMenuItem.Checked = true;
+            this.showNeighborsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showNeighborsToolStripMenuItem.Name = "showNeighborsToolStripMenuItem";
+            this.showNeighborsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showNeighborsToolStripMenuItem.Text = "Show Neighbors";
+            this.showNeighborsToolStripMenuItem.Click += new System.EventHandler(this.neighborCountToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -656,6 +688,9 @@ namespace GameOfLife2
         private System.Windows.Forms.ToolStripMenuItem neighborCountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gridSizeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem showNeighborsToolStripMenuItem;
     }
 }
 
