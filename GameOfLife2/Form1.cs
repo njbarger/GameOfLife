@@ -38,12 +38,6 @@ namespace GameOfLife2
         // File properties
         string fileName = "";
 
-        #region Properties
-
-
-
-        #endregion
-
         public Form1()
         {
             InitializeComponent();
@@ -156,6 +150,8 @@ namespace GameOfLife2
             graphicsPanel1.Invalidate();
         }
 
+        #region Count Neighbors
+
         private int CountNeighborsFinite(int x, int y)
         {
             int neighborCount = 0;
@@ -201,7 +197,7 @@ namespace GameOfLife2
 
             return neighborCount;
         }
-        
+
         private int CountNeighborsToroidal(int x, int y)
         {
             int neighborCount = 0;
@@ -246,6 +242,9 @@ namespace GameOfLife2
             }
             return neighborCount;
         }
+
+        #endregion
+
 
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
@@ -639,6 +638,7 @@ namespace GameOfLife2
 
         #endregion
 
+
         #region Save/SaveAs
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -718,6 +718,7 @@ namespace GameOfLife2
 
         #endregion
 
+
         #region Open
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -787,6 +788,9 @@ namespace GameOfLife2
 
         #endregion
 
+
+        #region Show Neighbors
+
         private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (neighborCountToolStripMenuItem.Checked || showNeighborsToolStripMenuItem.Checked || showNeighbors)
@@ -823,6 +827,42 @@ namespace GameOfLife2
             graphicsPanel1.Invalidate();
         }
 
-        
+        #endregion
+
+
+        #region Reset/Reload
+        private void resetToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Color.White;
+            Properties.Settings.Default.BackColor = Color.White;
+
+            gridColor = Color.Gray;
+            Properties.Settings.Default.GridColor = Color.Gray;
+
+            cellColor = Color.DarkGray;
+            Properties.Settings.Default.CellColor = Color.DarkGray;
+
+            SetUniverseSize(20.0f, 20.0f);
+            universeWidth = 20.0f;
+            universeHeight = 20.0f;
+            Properties.Settings.Default.UniverseWidth = 20;
+            Properties.Settings.Default.UniverseHeight = 20;
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Properties.Settings.Default.BackColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            SetUniverseSize(Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight);
+
+            graphicsPanel1.Invalidate();
+        }
+
+        #endregion
+
+
     }
 }
