@@ -40,7 +40,7 @@ namespace GameOfLife2
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(83, 144);
+            this.buttonOK.Location = new System.Drawing.Point(40, 122);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -51,7 +51,7 @@ namespace GameOfLife2
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(177, 144);
+            this.buttonCancel.Location = new System.Drawing.Point(134, 122);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -61,7 +61,7 @@ namespace GameOfLife2
             // numericUpDown1
             // 
             this.numericUpDown1.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.numericUpDown1.Location = new System.Drawing.Point(88, 89);
+            this.numericUpDown1.Location = new System.Drawing.Point(51, 69);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -80,7 +80,7 @@ namespace GameOfLife2
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(134, 53);
+            this.label1.Location = new System.Drawing.Point(91, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 3;
@@ -89,7 +89,7 @@ namespace GameOfLife2
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(183, 96);
+            this.label2.Location = new System.Drawing.Point(146, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 4;
@@ -102,7 +102,7 @@ namespace GameOfLife2
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(334, 211);
+            this.ClientSize = new System.Drawing.Size(244, 181);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown1);

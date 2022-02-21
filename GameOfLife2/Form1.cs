@@ -18,7 +18,7 @@ namespace GameOfLife2
         bool[,] universe;
         bool[,] scratchPad;
         bool isFinite = false;
-        bool showNeighbors = true;
+        bool showNeighbors = false;
         bool showGrid = true;
 
         // Drawing colors
