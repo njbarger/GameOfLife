@@ -29,7 +29,8 @@ namespace GameOfLife2
         Timer timer = new Timer();
 
         // Universe Size
-        float universeSize = 20.0f;
+        float universeWidth = 20.0f;
+        float universeHeight = 20.0f;
         // Generation count
         int generations = 0;
         int liveCellCount = 0;
@@ -46,8 +47,16 @@ namespace GameOfLife2
         public Form1()
         {
             InitializeComponent();
+
+            // Read in Settings
+            graphicsPanel1.BackColor = Properties.Settings.Default.BackColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            universeWidth = Properties.Settings.Default.UniverseWidth;
+            universeHeight = Properties.Settings.Default.UniverseHeight;
+
             // Initialize Universe Size
-            universe = new bool[(int)universeSize, (int)universeSize];
+            universe = new bool[(int)universeWidth, (int)universeHeight];
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
@@ -352,16 +361,6 @@ namespace GameOfLife2
                 }
             }
 
-            //for (int y = 0; y < universe.GetLength(1); y++)
-            //{
-            //    for (int x = 0; x < universe.GetLength(0); x++)
-            //    {
-            //        if (x % 10 == 0)
-            //        {
-            //            e.Graphics.DrawLine(gridPen, )
-            //        }
-            //    }
-            //}
             // Cleaning up pens and brushes
             gridPen.Dispose();              //not the same as delete, but marks as "done" for garbage collector, thusly saving on memory
             cellBrush.Dispose();
@@ -454,7 +453,18 @@ namespace GameOfLife2
 
         private void exitToolStripFileExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.BackColor = graphicsPanel1.BackColor;
+            Properties.Settings.Default.GridColor = gridColor;
+            Properties.Settings.Default.CellColor = cellColor;
+            Properties.Settings.Default.UniverseWidth = universeWidth;
+            Properties.Settings.Default.UniverseHeight = universeHeight;
+
+            Properties.Settings.Default.Save();
         }
 
         #endregion
@@ -465,9 +475,7 @@ namespace GameOfLife2
         private void FiniteBorderMenuChoice_Click(object sender, EventArgs e)
         {
             FiniteBorderMenuChoice.Checked = true;
-            finiteToolStripMenuItem.Checked = true;
             isFinite = true;
-            toroidalToolStripMenuItem.Checked = false;
             ToroidalBorderMenuChoice.Checked = false;
             toolStripStatusLabelFiniteOrToroidal.Text = "Edges = Finite";
             graphicsPanel1.Invalidate();
@@ -475,12 +483,10 @@ namespace GameOfLife2
 
         private void ToroidalBorderMenuChoice_Click(object sender, EventArgs e)
         {
-            toroidalToolStripMenuItem.Checked = true;
             ToroidalBorderMenuChoice.Checked = true;
 
             isFinite = false;
 
-            finiteToolStripMenuItem.Checked = false;
             FiniteBorderMenuChoice.Checked = false;
             toolStripStatusLabelFiniteOrToroidal.Text = "Edges = Toroidal";
             graphicsPanel1.Invalidate();
@@ -490,12 +496,10 @@ namespace GameOfLife2
         {
             if (isFinite)
             {
-                toroidalToolStripMenuItem.Checked = true;
                 ToroidalBorderMenuChoice.Checked = true;
 
                 isFinite = false;
 
-                finiteToolStripMenuItem.Checked = false;
                 FiniteBorderMenuChoice.Checked = false;
                 toolStripStatusLabelFiniteOrToroidal.Text = "Edges = Toroidal";
                 graphicsPanel1.Invalidate();
@@ -503,9 +507,7 @@ namespace GameOfLife2
             else if (!isFinite)
             {
                 FiniteBorderMenuChoice.Checked = true;
-                finiteToolStripMenuItem.Checked = true;
                 isFinite = true;
-                toroidalToolStripMenuItem.Checked = false;
                 ToroidalBorderMenuChoice.Checked = false;
                 toolStripStatusLabelFiniteOrToroidal.Text = "Edges = Finite";
                 graphicsPanel1.Invalidate();
@@ -537,6 +539,8 @@ namespace GameOfLife2
                     }
                 }
             }
+            universeWidth = widthSize;
+            universeHeight = heightSize;
             universe = newUniverse.Clone() as bool[,];
             ShowLivingCells();
             graphicsPanel1.Invalidate();
@@ -818,5 +822,7 @@ namespace GameOfLife2
 
             graphicsPanel1.Invalidate();
         }
+
+        
     }
 }
