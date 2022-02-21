@@ -82,5 +82,17 @@ namespace GameOfLife2.Properties {
                 this["UniverseHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int TimerSpeed {
+            get {
+                return ((int)(this["TimerSpeed"]));
+            }
+            set {
+                this["TimerSpeed"] = value;
+            }
+        }
     }
 }
