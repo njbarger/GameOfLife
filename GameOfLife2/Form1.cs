@@ -49,10 +49,11 @@ namespace GameOfLife2
             universeWidth = Properties.Settings.Default.UniverseWidth;
             universeHeight = Properties.Settings.Default.UniverseHeight;
 
+
             // Initialize Universe Size
             universe = new bool[(int)universeWidth, (int)universeHeight];
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = Properties.Settings.Default.TimerSpeed; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running ****set to false, so timer can be stopped/started*****
             //timer.Start();
@@ -848,6 +849,9 @@ namespace GameOfLife2
             Properties.Settings.Default.UniverseWidth = 20;
             Properties.Settings.Default.UniverseHeight = 20;
 
+            timer.Interval = 100;
+            Properties.Settings.Default.TimerSpeed = timer.Interval;
+
             graphicsPanel1.Invalidate();
         }
 
@@ -857,6 +861,7 @@ namespace GameOfLife2
             gridColor = Properties.Settings.Default.GridColor;
             cellColor = Properties.Settings.Default.CellColor;
             SetUniverseSize(Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight);
+            timer.Interval = Properties.Settings.Default.TimerSpeed;
 
             graphicsPanel1.Invalidate();
         }
