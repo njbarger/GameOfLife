@@ -1041,11 +1041,32 @@ namespace GameOfLife2
 
         #endregion
 
-
         #region HUD Options
 
-
+        private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // check if hud is on or menu items are checked
+            if (hudEnabled || hUDToolStripMenuItem.Checked || hUDToolStripMenuItem1.Checked)
+            {
+                // diable HUD
+                hudEnabled = false;
+                // uncheck toostrips
+                hUDToolStripMenuItem.Checked = false;
+                hUDToolStripMenuItem1.Checked = false;
+            }
+            // check if hud is off or menu items are not checked
+            else if (!hudEnabled || !hUDToolStripMenuItem.Checked || !hUDToolStripMenuItem1.Checked)
+            {
+                // enabel hud
+                hudEnabled = true;
+                // check toolstrips
+                hUDToolStripMenuItem.Checked = true;
+                hUDToolStripMenuItem1.Checked = true;
+            }
+        }
 
         #endregion
+
+
     }
 }

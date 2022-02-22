@@ -98,6 +98,8 @@ namespace GameOfLife2
             this.finiteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toroidalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new GameOfLife2.GraphicsPanel();
+            this.hUDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hUDToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -196,7 +198,8 @@ namespace GameOfLife2
             // 
             this.viewToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gridToolStripMenuItem1,
-            this.showNeighborsToolStripMenuItem});
+            this.showNeighborsToolStripMenuItem,
+            this.hUDToolStripMenuItem});
             this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
             this.viewToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem1.Text = "View";
@@ -206,14 +209,14 @@ namespace GameOfLife2
             this.gridToolStripMenuItem1.Checked = true;
             this.gridToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToolStripMenuItem1.Name = "gridToolStripMenuItem1";
-            this.gridToolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
+            this.gridToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.gridToolStripMenuItem1.Text = "Grid";
             this.gridToolStripMenuItem1.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
             // showNeighborsToolStripMenuItem
             // 
             this.showNeighborsToolStripMenuItem.Name = "showNeighborsToolStripMenuItem";
-            this.showNeighborsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.showNeighborsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showNeighborsToolStripMenuItem.Text = "Show Neighbors";
             this.showNeighborsToolStripMenuItem.Click += new System.EventHandler(this.neighborCountToolStripMenuItem_Click);
             // 
@@ -580,8 +583,9 @@ namespace GameOfLife2
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gridToolStripMenuItem,
             this.neighborCountToolStripMenuItem,
-            this.gridToolStripMenuItem});
+            this.hUDToolStripMenuItem1});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.viewToolStripMenuItem.Text = "View";
@@ -589,8 +593,8 @@ namespace GameOfLife2
             // neighborCountToolStripMenuItem
             // 
             this.neighborCountToolStripMenuItem.Name = "neighborCountToolStripMenuItem";
-            this.neighborCountToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.neighborCountToolStripMenuItem.Text = "Neighbor Count";
+            this.neighborCountToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neighborCountToolStripMenuItem.Text = "Show Neighbors";
             this.neighborCountToolStripMenuItem.Click += new System.EventHandler(this.neighborCountToolStripMenuItem_Click);
             // 
             // gridToolStripMenuItem
@@ -598,7 +602,7 @@ namespace GameOfLife2
             this.gridToolStripMenuItem.Checked = true;
             this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gridToolStripMenuItem.Text = "Grid";
             this.gridToolStripMenuItem.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
@@ -677,6 +681,24 @@ namespace GameOfLife2
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
+            // 
+            // hUDToolStripMenuItem
+            // 
+            this.hUDToolStripMenuItem.Checked = true;
+            this.hUDToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
+            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hUDToolStripMenuItem.Text = "HUD";
+            this.hUDToolStripMenuItem.Click += new System.EventHandler(this.hUDToolStripMenuItem_Click);
+            // 
+            // hUDToolStripMenuItem1
+            // 
+            this.hUDToolStripMenuItem1.Checked = true;
+            this.hUDToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hUDToolStripMenuItem1.Name = "hUDToolStripMenuItem1";
+            this.hUDToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.hUDToolStripMenuItem1.Text = "HUD";
+            this.hUDToolStripMenuItem1.Click += new System.EventHandler(this.hUDToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -772,6 +794,8 @@ namespace GameOfLife2
         private System.Windows.Forms.ToolStripMenuItem fromSeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromCurrentSeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromTimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hUDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hUDToolStripMenuItem1;
     }
 }
 
