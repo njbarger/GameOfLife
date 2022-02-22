@@ -17,9 +17,12 @@ namespace GameOfLife2
         // The universe array
         bool[,] universe;
         bool[,] scratchPad;
+
+        // Toolbar/Settings options
         bool isFinite = false;
         bool showNeighbors = false;
         bool showGrid = true;
+        bool hudEnabled = true;
         int currentSeed = 1234567890;
 
         // Drawing colors
@@ -368,9 +371,24 @@ namespace GameOfLife2
                         }
                     }
 
+                    
+
                 }
             }
+            // Draw the HUD
+            if (hudEnabled)
+            {
+                // Allign text in Bottom left corner
+                StringFormat stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Near;
+                stringFormat.LineAlignment = StringAlignment.Far;
 
+                Font font = new Font("Arial", 10f, FontStyle.Bold);
+                e.Graphics.DrawString($"Generations = {generations}" +
+                    $"\nCell Count = {liveCellCount} " +
+                    $"\nFinite = {isFinite} " +
+                    $"\nUniverse Size: (Width: {universeWidth}, Height: {universeHeight})", font, Brushes.Black, graphicsPanel1.ClientRectangle, stringFormat);
+            }
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -1024,5 +1042,10 @@ namespace GameOfLife2
         #endregion
 
 
+        #region HUD Options
+
+
+
+        #endregion
     }
 }
