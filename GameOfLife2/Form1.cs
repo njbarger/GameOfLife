@@ -329,11 +329,9 @@ namespace GameOfLife2
                         stringFormat.Alignment = StringAlignment.Center;
                         stringFormat.LineAlignment = StringAlignment.Center;
 
-                        Brush neighborBrush = new SolidBrush(Color.Red);
-
-                        RectangleF rect = new RectangleF(cellRect.X, cellRect.Y, cellWidth, cellHeight);
                         if (isFinite)
                         {
+                            // Count cells neighbors
                             int neighbors = CountNeighborsFinite(x, y);
 
                             // checks to see if cell is alive or has at least 1 neighbor
@@ -342,16 +340,17 @@ namespace GameOfLife2
                                 if (neighbors == 2 || neighbors == 3)   // change color to green if cell will be alive next generation
                                 {
 
-                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, rect, stringFormat);
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, cellRect, stringFormat);
                                 }
                                 else
                                 {
-                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, rect, stringFormat);
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, cellRect, stringFormat);
                                 }
                             }
                         }
                         else if (!isFinite)
                         {
+                            // count cells neighbors
                             int neighbors = CountNeighborsToroidal(x, y);
 
                             // checks to see if cell is alive or has at least 1 neighbor
@@ -359,11 +358,11 @@ namespace GameOfLife2
                             {
                                 if (neighbors == 2 || neighbors == 3)   // change color to green if cell will be alive next generation
                                 {
-                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, rect, stringFormat);
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, cellRect, stringFormat);
                                 }
                                 else
                                 {
-                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, rect, stringFormat);
+                                    e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Red, cellRect, stringFormat);
                                 }
                             }
                         }
@@ -433,6 +432,9 @@ namespace GameOfLife2
         // New File menu option / Button
         private void newToolStripFileNew_Click(object sender, EventArgs e)
         {
+            // stop timer
+            timer.Stop();
+
             // Set settings back to default
             resetToolStripMenuItem2_Click(sender, e);
 
