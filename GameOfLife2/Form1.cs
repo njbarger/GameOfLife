@@ -181,6 +181,7 @@ namespace GameOfLife2
             toolStripStatusLabelLivingCellCount.Text = "Living Cells = " + liveCellCount.ToString();
         }
 
+        
         #region Count Neighbors
 
         private int CountNeighborsFinite(int x, int y)
@@ -1041,6 +1042,7 @@ namespace GameOfLife2
 
         #endregion
 
+      
         #region HUD Options
 
         private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1053,6 +1055,8 @@ namespace GameOfLife2
                 // uncheck toostrips
                 hUDToolStripMenuItem.Checked = false;
                 hUDToolStripMenuItem1.Checked = false;
+
+                graphicsPanel1.Invalidate();
             }
             // check if hud is off or menu items are not checked
             else if (!hudEnabled || !hUDToolStripMenuItem.Checked || !hUDToolStripMenuItem1.Checked)
@@ -1062,6 +1066,8 @@ namespace GameOfLife2
                 // check toolstrips
                 hUDToolStripMenuItem.Checked = true;
                 hUDToolStripMenuItem1.Checked = true;
+
+                graphicsPanel1.Invalidate();
             }
         }
 
