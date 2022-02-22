@@ -37,7 +37,7 @@ namespace GameOfLife2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DarkGray")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
         public global::System.Drawing.Color CellColor {
             get {
                 return ((global::System.Drawing.Color)(this["CellColor"]));

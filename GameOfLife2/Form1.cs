@@ -23,7 +23,7 @@ namespace GameOfLife2
 
         // Drawing colors
         Color gridColor = Color.Gray;
-        Color cellColor = Color.DarkGray;
+        Color cellColor = Color.Black;
 
         // The Timer class
         Timer timer = new Timer();
@@ -463,6 +463,7 @@ namespace GameOfLife2
             Properties.Settings.Default.CellColor = cellColor;
             Properties.Settings.Default.UniverseWidth = universeWidth;
             Properties.Settings.Default.UniverseHeight = universeHeight;
+            Properties.Settings.Default.TimerSpeed = timer.Interval;
 
             Properties.Settings.Default.Save();
         }
@@ -589,7 +590,7 @@ namespace GameOfLife2
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             graphicsPanel1.BackColor = Color.White;
-            cellColor = Color.DarkGray;
+            cellColor = Color.Black;
             gridColor = Color.Gray;
 
             graphicsPanel1.Invalidate();
@@ -834,29 +835,19 @@ namespace GameOfLife2
         #region Reset/Reload
         private void resetToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            graphicsPanel1.BackColor = Color.White;
-            Properties.Settings.Default.BackColor = Color.White;
-
-            gridColor = Color.Gray;
-            Properties.Settings.Default.GridColor = Color.Gray;
-
-            cellColor = Color.DarkGray;
-            Properties.Settings.Default.CellColor = Color.DarkGray;
-
-            SetUniverseSize(20.0f, 20.0f);
-            universeWidth = 20.0f;
-            universeHeight = 20.0f;
-            Properties.Settings.Default.UniverseWidth = 20;
-            Properties.Settings.Default.UniverseHeight = 20;
-
-            timer.Interval = 100;
-            Properties.Settings.Default.TimerSpeed = timer.Interval;
+            Properties.Settings.Default.Reset();
+            graphicsPanel1.BackColor = Properties.Settings.Default.BackColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            SetUniverseSize(Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight);
+            timer.Interval = Properties.Settings.Default.TimerSpeed;
 
             graphicsPanel1.Invalidate();
         }
 
         private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.Reload();
             graphicsPanel1.BackColor = Properties.Settings.Default.BackColor;
             gridColor = Properties.Settings.Default.GridColor;
             cellColor = Properties.Settings.Default.CellColor;
