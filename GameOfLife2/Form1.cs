@@ -20,6 +20,7 @@ namespace GameOfLife2
         bool isFinite = false;
         bool showNeighbors = false;
         bool showGrid = true;
+        int currentSeed = 1234567890;
 
         // Drawing colors
         Color gridColor = Color.Gray;
@@ -415,6 +416,7 @@ namespace GameOfLife2
         {
             fileName = "";
             liveCellCount = 0;
+            SetUniverseSize(20, 20);
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 for (int x = 0; x < universe.GetLength(1); x++)
@@ -432,6 +434,7 @@ namespace GameOfLife2
         {
             fileName = "";
             liveCellCount = 0;
+            SetUniverseSize(20, 20);
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 for (int x = 0; x < universe.GetLength(1); x++)
@@ -543,6 +546,7 @@ namespace GameOfLife2
             universeWidth = widthSize;
             universeHeight = heightSize;
             universe = newUniverse.Clone() as bool[,];
+            scratchPad = universe.Clone() as bool[,];
             ShowLivingCells();
             graphicsPanel1.Invalidate();
         }
@@ -634,10 +638,6 @@ namespace GameOfLife2
 
             dlg.Dispose();
         }
-
-
-
-
         #endregion
 
 
@@ -680,6 +680,7 @@ namespace GameOfLife2
                 fileName = saveDlg.FileName;
                 writer.Close();
             }
+            saveDlg.Dispose();
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -784,6 +785,7 @@ namespace GameOfLife2
                 reader.Close();
             }
 
+            openDlg.Dispose();
             ShowLivingCells();
             graphicsPanel1.Invalidate();
         }
@@ -859,6 +861,81 @@ namespace GameOfLife2
 
         #endregion
 
+        private void Randomize()
+        {
+            Random rng = new Random();
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    universe[x, y] = false;
+                    int rand = rng.Next(0, 2);
+                    if (rand == 1)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else
+                    {
+                        continue;
+                    }
 
+                }
+            }
+        }
+
+        private void RandomizeWithSeed(int seedNum)
+        {
+            Random rng = new Random(seedNum);
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    universe[x, y] = false;
+                    int rand = rng.Next(0, 2);
+                    if (rand == 1)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                }
+            }
+        }
+
+
+        #region Randomize Function
+
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Randomize();
+            graphicsPanel1.Invalidate();
+        }
+
+        private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RandomSeedDialog RngDialog = new RandomSeedDialog();
+            RngDialog.RngSeed = currentSeed;
+            if (DialogResult.OK == RngDialog.ShowDialog())
+            {
+                currentSeed = RngDialog.RngSeed;
+
+                RandomizeWithSeed(currentSeed);
+            }
+
+            RngDialog.Dispose();
+            graphicsPanel1.Invalidate();
+        }
+
+        private void fromCurrentSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RandomizeWithSeed(currentSeed);
+            graphicsPanel1.Invalidate();
+        }
+
+        #endregion
+        
     }
 }
