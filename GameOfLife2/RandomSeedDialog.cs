@@ -29,6 +29,7 @@ namespace GameOfLife2
             }
         }
 
+        // Allow random seed option
         private void RandomizeSeed_Click(object sender, EventArgs e)
         {
             Random rng = new Random();

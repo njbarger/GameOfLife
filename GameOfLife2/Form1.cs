@@ -37,7 +37,7 @@ namespace GameOfLife2
         int liveCellCount = 0;
 
         // File properties
-        string fileName = "";
+        string fileName = "Untitled";
 
         public Form1()
         {
@@ -53,17 +53,24 @@ namespace GameOfLife2
 
             // Initialize Universe Size
             universe = new bool[(int)universeWidth, (int)universeHeight];
+
             // Setup the timer
             timer.Interval = Properties.Settings.Default.TimerSpeed; // milliseconds
             timer.Tick += Timer_Tick;
-            timer.Enabled = false; // start timer running ****set to false, so timer can be stopped/started*****
-            //timer.Start();
-            //timer.Stop();
+            timer.Enabled = false;
+
+        }
+        
+        // The event called by the timer every Interval milliseconds.
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            NextGeneration();
         }
 
         // Calculate the next generation of cells
         private void NextGeneration()
         {
+            // Copy universe to scratchpad
             scratchPad = universe.Clone() as bool[,];
 
             if (isFinite)
@@ -97,7 +104,7 @@ namespace GameOfLife2
                     }
                 }
             }
-            else
+            else // Toroidal logic
             {
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
@@ -135,6 +142,7 @@ namespace GameOfLife2
             // Update status strip generations
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
 
+            // Update status strip Finite/Toroidal
             if (isFinite)
             {
                 toolStripStatusLabelFiniteOrToroidal.Text = "Edges = " + "Finite";
@@ -150,6 +158,24 @@ namespace GameOfLife2
             universe = scratchPad.Clone() as bool[,];
 
             graphicsPanel1.Invalidate();
+        }
+        
+        // Counts total cells to display on status strip.
+        private void ShowLivingCells()
+        {
+            liveCellCount = 0;
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    if (universe[x, y])
+                    {
+                        liveCellCount++;
+                    }
+                }
+            }
+
+            toolStripStatusLabelLivingCellCount.Text = "Living Cells = " + liveCellCount.ToString();
         }
 
         #region Count Neighbors
@@ -248,28 +274,7 @@ namespace GameOfLife2
         #endregion
 
 
-        // The event called by the timer every Interval milliseconds.
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            NextGeneration();
-        }
-
-        private void ShowLivingCells()
-        {
-            liveCellCount = 0;
-            for (int y = 0; y < universe.GetLength(1); y++)
-            {
-                for (int x = 0; x < universe.GetLength(0); x++)
-                {
-                    if (universe[x, y])
-                    {
-                        liveCellCount++;
-                    }
-                }
-            }
-
-            toolStripStatusLabelLivingCellCount.Text = "Living Cells = " + liveCellCount.ToString();
-        }
+        #region Graphic Panel/Mouse
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -308,17 +313,18 @@ namespace GameOfLife2
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
 
-                    // Outline the cell with a pen
+                    // Outline the cell with a pen (if showGrid is enabled)
                     if (showGrid)
                     {
                         e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                     }
 
-                    // Fill with Neighbor Count
+                    // Fill with Neighbor Count   (if showNeighbors is enabled
                     if (showNeighbors)
                     {
                         Font font = new Font("Arial", 8.0f);
 
+                        // Allign text in center
                         StringFormat stringFormat = new StringFormat();
                         stringFormat.Alignment = StringAlignment.Center;
                         stringFormat.LineAlignment = StringAlignment.Center;
@@ -329,9 +335,11 @@ namespace GameOfLife2
                         if (isFinite)
                         {
                             int neighbors = CountNeighborsFinite(x, y);
+
+                            // checks to see if cell is alive or has at least 1 neighbor
                             if (universe[x, y] || neighbors > 0)
                             {
-                                if (neighbors == 2 || neighbors == 3)
+                                if (neighbors == 2 || neighbors == 3)   // change color to green if cell will be alive next generation
                                 {
 
                                     e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, rect, stringFormat);
@@ -345,9 +353,11 @@ namespace GameOfLife2
                         else if (!isFinite)
                         {
                             int neighbors = CountNeighborsToroidal(x, y);
+
+                            // checks to see if cell is alive or has at least 1 neighbor
                             if (universe[x, y] || neighbors > 0)
                             {
-                                if (neighbors == 2 || neighbors == 3)
+                                if (neighbors == 2 || neighbors == 3)   // change color to green if cell will be alive next generation
                                 {
                                     e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Green, rect, stringFormat);
                                 }
@@ -363,7 +373,7 @@ namespace GameOfLife2
             }
 
             // Cleaning up pens and brushes
-            gridPen.Dispose();              //not the same as delete, but marks as "done" for garbage collector, thusly saving on memory
+            gridPen.Dispose();
             cellBrush.Dispose();
         }
 
@@ -385,23 +395,31 @@ namespace GameOfLife2
                 // Toggle the cell's state
                 universe[(int)x, (int)y] = !universe[(int)x, (int)y];
 
+                // Update living cell status strip
                 ShowLivingCells();
+
                 graphicsPanel1.Invalidate();
             }
         }
 
+        #endregion
+
+
         #region Start/Stop/Next
 
+        // Play Button
         private void toolStripButtonPlay_Click(object sender, EventArgs e)
         {
             timer.Start();
         }
 
+        // Stop Button
         private void toolStripButtonStop_Click(object sender, EventArgs e)
         {
             timer.Stop();
         }
 
+        // Next Generation Button
         private void toolStripButtonNextGeneration_Click(object sender, EventArgs e)
         {
             NextGeneration();
@@ -410,31 +428,15 @@ namespace GameOfLife2
         #endregion
 
 
-        #region New Template Buttons
+        #region New Template
 
+        // New File menu option / Button
         private void newToolStripFileNew_Click(object sender, EventArgs e)
         {
-            fileName = "";
-            liveCellCount = 0;
-            SetUniverseSize(20, 20);
-            for (int y = 0; y < universe.GetLength(0); y++)
-            {
-                for (int x = 0; x < universe.GetLength(1); x++)
-                {
-                    universe[x, y] = false;
-                }
-            }
-            // Update status strip generations
-            generations = 0;
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
-            graphicsPanel1.Invalidate();
-        }
+            // Set settings back to default
+            resetToolStripMenuItem2_Click(sender, e);
 
-        private void newToolStripButtonNew_Click(object sender, EventArgs e)
-        {
-            fileName = "";
-            liveCellCount = 0;
-            SetUniverseSize(20, 20);
+            // clear the universe
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 for (int x = 0; x < universe.GetLength(1); x++)
@@ -443,22 +445,26 @@ namespace GameOfLife2
                 }
             }
 
-            // Update status strip generations
+            // Update status strips
+            ShowLivingCells();
             generations = 0;
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
             graphicsPanel1.Invalidate();
         }
+
 
         #endregion
 
 
-        #region ExitButtons
+        #region Exit
 
+        // Exit menu option
         private void exitToolStripFileExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Redefines settings at exit.
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.BackColor = graphicsPanel1.BackColor;
@@ -476,6 +482,7 @@ namespace GameOfLife2
 
         #region Finite/Toroidal Settings
 
+        // Drop Down Finite selection
         private void FiniteBorderMenuChoice_Click(object sender, EventArgs e)
         {
             FiniteBorderMenuChoice.Checked = true;
@@ -485,6 +492,7 @@ namespace GameOfLife2
             graphicsPanel1.Invalidate();
         }
 
+        // Drop down Toroidal Selection
         private void ToroidalBorderMenuChoice_Click(object sender, EventArgs e)
         {
             ToroidalBorderMenuChoice.Checked = true;
@@ -496,6 +504,7 @@ namespace GameOfLife2
             graphicsPanel1.Invalidate();
         }
 
+        // Finite/Toroidal Toggle Button
         private void EdgesSettingsButton_ButtonClick(object sender, EventArgs e)
         {
             if (isFinite)
@@ -522,13 +531,18 @@ namespace GameOfLife2
 
         #region Grid Size Settings
 
+        // Resizes universe.
         private void SetUniverseSize(float widthSize, float heightSize)
         {
+            // create temp universe with desired size
             bool[,] newUniverse = new bool[(int)widthSize, (int)heightSize];
+
+            // Iterate through new universe to define cells
             for (int y = 0; y < newUniverse.GetLength(1); y++)
             {
                 for (int x = 0; x < newUniverse.GetLength(0); x++)
                 {
+                    // check for out of bounds in Universe
                     if (x >= universe.GetLength(0) || y >= universe.GetLength(1))
                     {
                         newUniverse[x, y] = false;
@@ -543,19 +557,29 @@ namespace GameOfLife2
                     }
                 }
             }
+
+            // Adjust Setting Selections
             universeWidth = widthSize;
             universeHeight = heightSize;
+
+            // Redefine universe/scratchpad to new Universe
             universe = newUniverse.Clone() as bool[,];
             scratchPad = universe.Clone() as bool[,];
+
+            // Update living cells status
             ShowLivingCells();
+
             graphicsPanel1.Invalidate();
         }
+
+        // Opens GridDialog box to set Universe Size
         private void GridSettingsButton_Click(object sender, EventArgs e)
         {
             GridSizeDialog gridDlg = new GridSizeDialog();
             gridDlg.GridWidth = universe.GetLength(0);
             gridDlg.GridHeight = universe.GetLength(1);
 
+            // Open grid Dialog
             if (DialogResult.OK == gridDlg.ShowDialog())
             {
                 SetUniverseSize(gridDlg.GridWidth, gridDlg.GridHeight);
@@ -569,6 +593,7 @@ namespace GameOfLife2
 
         #region Timer Settings
 
+        // Opens Time Dialog Box to adjust generation speed.
         private void toolStripButtonTimerDialog_Click(object sender, EventArgs e)
         {
             TimerDialog tDlg = new TimerDialog();
@@ -576,6 +601,7 @@ namespace GameOfLife2
 
             if (DialogResult.OK == tDlg.ShowDialog())
             {
+                // Check for 0 or negative, switch to 1 millisecond.
                 if (tDlg.TimerSpeed <= 0)
                 {
                     tDlg.TimerSpeed = 1;
@@ -591,6 +617,7 @@ namespace GameOfLife2
 
         #region Color Settings
 
+        // Reset to basic colors
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             graphicsPanel1.BackColor = Color.White;
@@ -599,6 +626,8 @@ namespace GameOfLife2
 
             graphicsPanel1.Invalidate();
         }
+
+        // Background Color dialog box
         private void backgroundToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -612,6 +641,7 @@ namespace GameOfLife2
             dlg.Dispose();
         }
 
+        // CellColor dialog box
         private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -625,6 +655,7 @@ namespace GameOfLife2
             dlg.Dispose();
         }
 
+        // GridColor diaolog box
         private void gridColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -643,6 +674,7 @@ namespace GameOfLife2
 
         #region Save/SaveAs
 
+        // Save-As
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveDlg = new SaveFileDialog();
@@ -652,9 +684,13 @@ namespace GameOfLife2
 
             if (DialogResult.OK == saveDlg.ShowDialog())
             {
+                // Write to new file
                 StreamWriter writer = new StreamWriter(saveDlg.FileName);
 
-                writer.WriteLine("!Test Glider");
+                // Add Name to File
+                writer.WriteLine("!" + saveDlg.FileName);
+
+                // Iterate through universe and write to file
                 for (int y = 0; y < universe.GetLength(0); y++)
                 {
                     String currentRow = string.Empty;
@@ -677,21 +713,27 @@ namespace GameOfLife2
                     writer.WriteLine(currentRow);
                 }
 
+                // Set local fileName for other operations
                 fileName = saveDlg.FileName;
                 writer.Close();
             }
             saveDlg.Dispose();
         }
+
+        // Save Function (Save As if no fileName)
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (fileName == "")
+            // Runs Save As if not saved
+            if (fileName == "Untitled")
             {
                 saveAsToolStripMenuItem_Click(sender, e);
             }
             else
             {
+                // Starts writing to current file
                 StreamWriter writer = new StreamWriter(fileName);
 
+                // Writes file name to .txt file
                 writer.WriteLine(@"!{fileName}");
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
@@ -732,40 +774,48 @@ namespace GameOfLife2
 
             if (DialogResult.OK == openDlg.ShowDialog())
             {
+                // Starts reading chosen file
                 StreamReader reader = new StreamReader(openDlg.FileName);
 
                 float maxWidth = 0.0f;
                 float maxHeight = 0.0f;
                 int yCount = 0;
 
+                // Reads size of incoming universe
                 while (!reader.EndOfStream)
                 {
                     string row = reader.ReadLine();
+                    // Checks for name/comments
                     if (row.StartsWith("!"))
                     {
                         continue;
                     }
-                    else
+                    else     // Sets Width and increments height
                     {
                         maxHeight++;
                         maxWidth = row.Length;
                     }
                 }
 
+                // Sends incoming file size to Universe
                 SetUniverseSize(maxWidth, maxHeight);
 
+                // Start from Files beginning
                 reader.BaseStream.Seek(0, SeekOrigin.Begin);
 
+                // Reiterate, filling universe with files cells
                 while (!reader.EndOfStream)
                 {
                     string row = reader.ReadLine();
 
+                    // ignore name/comments
                     if (row.StartsWith("!"))
                     {
                         continue;
                     }
                     else
                     {
+                        //iterate through each row, filling each live cell, then increment y
                         for (int x = 0; x < row.Length; x++)
                         {
                             if (row[x] == 'O')
@@ -781,31 +831,43 @@ namespace GameOfLife2
                     }
                 }
 
+                // Sets current fileName for other operations
                 fileName = openDlg.FileName;
                 reader.Close();
             }
 
             openDlg.Dispose();
+
+            //Update Status strip
             ShowLivingCells();
+
             graphicsPanel1.Invalidate();
         }
 
         #endregion
 
 
-        #region Show Neighbors
+        #region Show Neighbors / Show Grid
 
+        // Checkbox logic
         private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Unchecks all neighbor toolstrips if clicked and any are Checked
             if (neighborCountToolStripMenuItem.Checked || showNeighborsToolStripMenuItem.Checked || showNeighbors)
             {
+                // Set showNeighbors to false
                 showNeighbors = false;
+                // uncheck boxes
                 neighborCountToolStripMenuItem.Checked = false;
                 showNeighborsToolStripMenuItem.Checked = false;
             }
-            else if (!neighborCountToolStripMenuItem.Checked || !showNeighbors)
+
+            // Checks all neighbor toolstrips if clicked and any are unchecked
+            else if (!neighborCountToolStripMenuItem.Checked|| !showNeighborsToolStripMenuItem.Checked || !showNeighbors)
             {
+                // set showNeighbors to true
                 showNeighbors = true;
+                // check boxes
                 neighborCountToolStripMenuItem.Checked = true;
                 showNeighborsToolStripMenuItem.Checked = true;
             }
@@ -815,15 +877,22 @@ namespace GameOfLife2
 
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // unchecks all showGrid toolstrips if clicked and any are checked
             if (gridToolStripMenuItem.Checked || gridToolStripMenuItem1.Checked || showGrid)
             {
+                // set showGrid to false
                 showGrid = false;
+                // uncheck boxes
                 gridToolStripMenuItem.Checked = false;
                 gridToolStripMenuItem1.Checked = false;
             }
+
+            // checks all showGrid toolstrips if clicked and any are unchecked
             else if (!gridToolStripMenuItem.Checked || !gridToolStripMenuItem1.Checked || !showGrid)
             {
+                // set showGrid to true
                 showGrid = true;
+                // check boxes
                 gridToolStripMenuItem.Checked = true;
                 gridToolStripMenuItem1.Checked = true;
             }
@@ -835,6 +904,8 @@ namespace GameOfLife2
 
 
         #region Reset/Reload
+
+        // Resets settings back to defaults
         private void resetToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reset();
@@ -847,6 +918,7 @@ namespace GameOfLife2
             graphicsPanel1.Invalidate();
         }
 
+        // Reloads settings from most recent launch
         private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reload();
@@ -861,6 +933,11 @@ namespace GameOfLife2
 
         #endregion
 
+
+        #region Randomize Universe
+
+
+        // Randomize univerese method (no seed)
         private void Randomize()
         {
             Random rng = new Random();
@@ -868,7 +945,10 @@ namespace GameOfLife2
             {
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
+                    // Clear each cell, then randomize
                     universe[x, y] = false;
+
+                    // 1:3 ratio
                     int rand = rng.Next(0, 2);
                     if (rand == 1)
                     {
@@ -883,6 +963,7 @@ namespace GameOfLife2
             }
         }
 
+        // Randomize universe with seed
         private void RandomizeWithSeed(int seedNum)
         {
             Random rng = new Random(seedNum);
@@ -905,21 +986,23 @@ namespace GameOfLife2
             }
         }
 
-
-        #region Randomize Function
-
+        // Basic Randomizing
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Randomize();
             graphicsPanel1.Invalidate();
         }
 
+        // Randomize from Chosen Seed
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RandomSeedDialog RngDialog = new RandomSeedDialog();
+
+            // Sets dialog speed to current
             RngDialog.RngSeed = currentSeed;
             if (DialogResult.OK == RngDialog.ShowDialog())
             {
+                // sets current seed for other operations
                 currentSeed = RngDialog.RngSeed;
 
                 RandomizeWithSeed(currentSeed);
@@ -929,6 +1012,7 @@ namespace GameOfLife2
             graphicsPanel1.Invalidate();
         }
 
+        // Randomize With the current seed.
         private void fromCurrentSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RandomizeWithSeed(currentSeed);
@@ -936,6 +1020,7 @@ namespace GameOfLife2
         }
 
         #endregion
-        
+
+
     }
 }
